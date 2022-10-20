@@ -9,7 +9,7 @@
 #define __USERS_H__
 
 #define NUM_USERS 27
-#define REGISTER 1
+#define REGISTERED 1
 #define UNREGISTERED 0
 
 #define FILE_READ "r"

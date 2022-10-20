@@ -13,7 +13,7 @@
 
 #include "logging.h"
 #include "users.h"
-
+#include "commands.h"
 
 #define RCV_BUFFER_SIZE 1024
 #define SND_BUFFER_SIZE 1024
@@ -23,6 +23,9 @@ int clientNumber = 0; // Store how many clients are connected
 
 // Threading Function
 void *connection_handler(void *);
+
+// Convert a string to full upper case
+char *strupr(char * text);
 
 int main()
 {
@@ -46,10 +49,7 @@ int main()
         log_message("SERVER", "Socket creation failed, exiting.");
         return 1;
     }
-    else
-    {
-        log_message("SERVER", "Socket created.");
-    }
+    log_message("SERVER", "Socket created.");
 
     //Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
@@ -107,7 +107,8 @@ void *connection_handler(void *socket_desc)
     //Get the socket descriptor
     int sock = *(int*)socket_desc;
     int read_size;
-    char *message , mymessage[2000],  client_message[2000], threadName[20];
+    char *message , mymessage[2000],  client_message[2000], threadName[20],
+         *userID, *command;
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
      
     //Send some messages to the client
@@ -117,18 +118,51 @@ void *connection_handler(void *socket_desc)
      
     message = "Now type something and i shall repeat what you type \n";
     write(sock , message , strlen(message));
+
+    // TODO: Get the user ID after first connection
      
+    int quit = 0;
     //Receive a message from client
     while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 )
     {
         //end of string marker
 		client_message[read_size] = '\0';
+
+        // Determie the command
+        if (strcmp(strupr(client_message), CMD_HELP))
+        {
+            client_message = execute_help();
+        }
+        else if (strcmp(strupr(client_message), CMD_QUIT))
+        {
+            client_message = execute_quit();
+            quit = 1;
+        }
+        else if (strcmp(strupr(client_message), CMD_REGISTER))
+        {
+            client_message = execute_register(userID);
+        }
+        else if (strcmp(strupr(client_message), CMD_MYINFO))
+        {
+            client_message = execute_myinfo(userID);
+        }
+        else if (strcmp(strupr(client_message), CMD_ONLINE_USERS))
+        {
+            client_message = execute_online_users(userID);
+        }
+        else if (strcmp(strupr(client_message), CMD_REGISTERED_USERS))
+        {
+            client_message = execute_registered_users(userID);
+        }
 		
 		//Send the message back to client
         write(sock , client_message , strlen(client_message));
 		
 		//clear the message buffer
 		memset(client_message, 0, 2000);
+
+        if (quit == 1)
+            break;
     }
      
     if(read_size == 0)
@@ -144,3 +178,14 @@ void *connection_handler(void *socket_desc)
     return 0;
 } 
 
+char *strupr(char * text)
+{
+	int i, j=strlen(text);
+	
+	for (i=0;i<j;i++)
+	{
+		if ((text[i]>=97)&&(text[i]<=122))
+			text[i]=text[i]-32;
+	}
+	return text;
+}
