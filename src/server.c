@@ -95,7 +95,7 @@ int main()
         return 1;
     }
      
-    log_message("SERVER", "Exiting...")
+    log_message("SERVER", "Exiting...");
     return 0;
 }
  
