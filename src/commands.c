@@ -93,7 +93,8 @@ char* execute_register(char* userID)
         return "0#User is already registered.";
 
     // Change user's status to registered.
-    
+    user->status = REGISTERED;
+    return "1#User successfully registered.";
 
 }
 
