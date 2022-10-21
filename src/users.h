@@ -45,7 +45,7 @@ int load_users_list();
 
 /**
  * @brief 
- * 
+ * will give all users Their appropriate ID and first and last name and will assign them an age between 18 and 20, a GPA between 2.5 and 4.0 
  */
 int initialize_users();
 
