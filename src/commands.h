@@ -21,22 +21,14 @@
  * 
  * @return char* 
  */
-char* execute_help();
+char* execute_help();   // If the user inputs this command the server will respond with a string of all accepted commands
 
 /**
  * @brief 
  * 
  * @return char* 
  */
-char* execute_quit();
-
-/**
- * @brief 
- * 
- * @param userID 
- * @return char* 
- */
-char* execute_register(char* userID);
+char* execute_quit();   // If the user inputs this command the server will  disconnect them and respond with a string telling them that they have been disconnected 
 
 /**
  * @brief 
@@ -44,7 +36,10 @@ char* execute_register(char* userID);
  * @param userID 
  * @return char* 
  */
-char* execute_myinfo(char* userID);
+char* execute_register(char* userID);   /* If the user inputs this command the server will attempt to register them and respond with
+                                         a string telling them that their userID has been registered successfully or not
+                                         possible reasons are it was already registered or it is an invalid userID*/
+                                        
 
 /**
  * @brief 
@@ -52,7 +47,16 @@ char* execute_myinfo(char* userID);
  * @param userID 
  * @return char* 
  */
-char* execute_online_users(char* userID);
+char* execute_myinfo(char* userID);   /* If the user inputs this command the server will respond with a string of their name,age,GPA,and IP address
+                                      name is in the format Firstname Lastname, age is an integer between 18 and 22, GPA is a float between 2.5 and 4.0,
+                                      and Their IP address*/
+/**
+ * @brief 
+ * 
+ * @param userID 
+ * @return char* 
+ */
+char* execute_online_users(char* userID);   // If the user iputs this command the server will respond with a string of all online users
 
 /**
  * @brief 
@@ -60,7 +64,7 @@ char* execute_online_users(char* userID);
  * @param userID 
  * @return char* 
  */
-char* execute_registered_users(char* userID);
+char* execute_registered_users(char* userID);   // If the user inputs this command the server will respond with a string of all registered users
 
 
 #endif
