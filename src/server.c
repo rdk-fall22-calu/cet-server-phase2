@@ -84,8 +84,8 @@ int main()
         	clientNumber ++; //increase the number of connected clients
 
         struct clientInfo info;
-        info->sock = &client_sock;
-        strcpy(info->ipaddress, inet_ntoa(client.sin_addr));
+        info.sock = &client_sock;
+        strcpy(info.ipaddress, inet_ntoa(client.sin_addr));
          
         if( pthread_create( &thread_id , NULL ,  connection_handler , (void*) &info) < 0)
         {
