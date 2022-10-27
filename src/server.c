@@ -195,8 +195,6 @@ void *connection_handler(void *clientInfo)
 		
 		//Send the message back to client
         write(sock , message , strlen(message));
-        snprintf(displayMessage, sizeof(displayMessage), "Message being sent: \n\n\t %s \n\n", message);
-        log_message(threadName, displayMessage);
 		
 		//clear the message buffer
 		memset(client_message, 0, 4000);
