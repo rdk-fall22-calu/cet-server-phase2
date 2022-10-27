@@ -30,7 +30,7 @@ struct user {
     char name[50];
     int age;
     float gpa;
-    char* address; // IP Address user is connected from
+    char address[50]; // IP Address user is connected from
     int status;
 };
 
