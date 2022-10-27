@@ -110,6 +110,7 @@ int initialize_users()
             userList[userCount].age = (rand() % 5) + 18; // Value between 18-22
             userList[userCount].gpa = ((rand() % 16) + 25) / 10.0f; // Value between 2.5-4.0
             userList[userCount].status = UNREGISTERED;
+            userList[userCount].address = "not implemented";
 
             // Increment count
             userCount++;

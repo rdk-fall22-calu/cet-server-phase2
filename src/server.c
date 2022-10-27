@@ -124,7 +124,7 @@ void *connection_handler(void *socket_desc)
     write(sock , message , strlen(message));
 
     // TODO: Get the user ID after first connection
-    
+
      
     //Receive a message from client
     int quit = 0;
@@ -132,49 +132,49 @@ void *connection_handler(void *socket_desc)
     {
         //end of string marker
 		client_message[read_size] = '\0';
-        client_message = strupr(client_message);
+        strupr(client_message);
 
         // Determie the command
         if (strcmp(client_message, CMD_HELP))
         {
             log_message(threadName, "Executing HELP command.");
-            client_message = execute_help();
+            message = execute_help();
         }
         else if (strcmp(client_message, CMD_QUIT))
         {
             log_message(threadName, "Executing QUIT command.");
-            client_message = execute_quit();
+            message = execute_quit();
             quit = 1;
         }
         else if (strcmp(client_message, CMD_REGISTER))
         {
             log_message(threadName, "Executing REGISTER command.");
-            client_message = execute_register(userID);
+            message = execute_register(userID);
         }
         else if (strcmp(client_message, CMD_MYINFO))
         {
             log_message(threadName, "Executing MYINFO command.");
-            client_message = execute_myinfo(userID);
+            message = execute_myinfo(userID);
         }
         else if (strcmp(client_message, CMD_ONLINE_USERS))
         {
             log_message(threadName, "Executing ONLINEUSERS command.");
-            client_message = execute_online_users(userID);
+            message = execute_online_users(userID);
         }
         else if (strcmp(client_message, CMD_REGISTERED_USERS))
         {
             log_message(threadName, "Executing REGISTEREDUSERS command.");
-            client_message = execute_registered_users(userID);
+            message = execute_registered_users(userID);
         }
         else 
         {
             snprintf(displayMessage, sizeof(displayMessage), "Command not recognized. Client message: \n\n\t %s \n\n", client_message);
             log_message(threadName, displayMessage);
-            client_message = "0#Command not recognized.";
+            message = "0#Command not recognized.";
         }
 		
 		//Send the message back to client
-        write(sock , client_message , strlen(client_message));
+        write(sock , message , strlen(message));
 		
 		//clear the message buffer
 		memset(client_message, 0, 2000);
