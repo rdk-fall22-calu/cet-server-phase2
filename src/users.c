@@ -175,3 +175,8 @@ struct user* get_user(char *userID)
     return NULL;
 
 }
+
+struct user** get_user_list()
+{
+    return userList;
+}

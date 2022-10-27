@@ -67,4 +67,10 @@ void save_user_data();
 struct user* get_user(char *userID);
 
 
+/**
+ * @brief 
+ * 
+ */
+struct [] user* get_user_list();
+
 #endif
