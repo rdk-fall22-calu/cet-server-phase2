@@ -108,21 +108,26 @@ void *connection_handler(void *socket_desc)
     int sock = *(int*)socket_desc;
     int read_size;
     char *message , mymessage[2000],  client_message[2000], threadName[20],
-         *userID, *command;
+         *userID, displayMessage[2000];
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
      
-    //Send some messages to the client
-    snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler\n", clientNumber);
+    // Greet the Client
+    snprintf(displayMessage, sizeiof(displayMessage), "Connecting to client on thread %d", clientNumber);
+    log_message(threadName, displayMessage);
+
+    snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler.\n", clientNumber);
     message = mymessage;
     write(sock , message , strlen(message));
-     
-    message = "Now type something and i shall repeat what you type \n";
+
+    // Get the User ID
+    message = "Please input your User ID.\n";
     write(sock , message , strlen(message));
 
     // TODO: Get the user ID after first connection
      
-    int quit = 0;
+     
     //Receive a message from client
+    int quit = 0;
     while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 )
     {
         //end of string marker
@@ -131,28 +136,40 @@ void *connection_handler(void *socket_desc)
         // Determie the command
         if (strcmp(strupr(client_message), CMD_HELP))
         {
+            log_message(threadName, "Executing HELP command.");
             client_message = execute_help();
         }
         else if (strcmp(strupr(client_message), CMD_QUIT))
         {
+            log_message(threadName, "Executing QUIT command.");
             client_message = execute_quit();
             quit = 1;
         }
         else if (strcmp(strupr(client_message), CMD_REGISTER))
         {
+            log_message(threadName, "Executing REGISTER command.");
             client_message = execute_register(userID);
         }
         else if (strcmp(strupr(client_message), CMD_MYINFO))
         {
+            log_message(threadName, "Executing MYINFO command.");
             client_message = execute_myinfo(userID);
         }
         else if (strcmp(strupr(client_message), CMD_ONLINE_USERS))
         {
+            log_message(threadName, "Executing ONLINEUSERS command.");
             client_message = execute_online_users(userID);
         }
         else if (strcmp(strupr(client_message), CMD_REGISTERED_USERS))
         {
+            log_message(threadName, "Executing REGISTEREDUSERS command.");
             client_message = execute_registered_users(userID);
+        }
+        else 
+        {
+            log_message(threadName, "Command not recognized. Dumping client message:");
+            log_message(threadName, client_message);
+            client_message = "0#Command not recognized.";
         }
 		
 		//Send the message back to client
@@ -161,18 +178,19 @@ void *connection_handler(void *socket_desc)
 		//clear the message buffer
 		memset(client_message, 0, 2000);
 
+        // Disconnect
         if (quit == 1)
             break;
     }
      
     if(read_size == 0)
     {
-        log_message(threadName, "Client disconnected");
+        log_message(threadName, "Client disconnected.");
         fflush(stdout);
     }
     else if(read_size == -1)
     {
-        log_message(threadName, "Receive failed");
+        log_message(threadName, "Receive failed.");
     }
          
     return 0;
