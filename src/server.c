@@ -21,6 +21,11 @@
 
 int clientNumber = 0; // Store how many clients are connected
 
+struct clientInfo {
+    char ipaddress[15];
+    void *sock;
+};
+
 // Threading Function
 void *connection_handler(void *);
 
@@ -77,8 +82,12 @@ int main()
     {
         log_message("SERVER", "Connection accepted.");
         	clientNumber ++; //increase the number of connected clients
+
+        struct clientInfo info;
+        info->sock = &client_sock;
+        strcpy(info->ipaddress, inet_ntoa(client.sin_addr));
          
-        if( pthread_create( &thread_id , NULL ,  connection_handler , (void*) &client_sock) < 0)
+        if( pthread_create( &thread_id , NULL ,  connection_handler , (void*) &info) < 0)
         {
             log_message("SERVER", "Could not create thread. Exiting...");
             return 1;
@@ -102,17 +111,19 @@ int main()
 /*
  * This will handle connection for each client
  * */
-void *connection_handler(void *socket_desc)
+void *connection_handler(void *clientInfo)
 {
     //Get the socket descriptor
-    int sock = *(int*)socket_desc;
+    struct clientInfo *info = clientInfo;
+    int sock = *(int*) info->sock;
     int read_size;
     char *message , mymessage[2000],  client_message[2000], threadName[20],
          *userID, displayMessage[2000];
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
+    
      
     // Greet the Client
-    snprintf(displayMessage, sizeof(displayMessage), "Connecting to client on thread %d", clientNumber);
+    snprintf(displayMessage, sizeof(displayMessage), "Connecting to client on %s", info->ipaddress);
     log_message(threadName, displayMessage);
 
     snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler.\n", clientNumber);
