@@ -134,8 +134,10 @@ char* execute_online_users(char* userID)
     {
         if (strcmp(userList[i].address, DEFAULT_IP_ADDRESS) != 0)
         {
+            char id[10];
+            strcpy(id, userList[i].userID);
             strcat(message, "#");
-            strcat(message, userList[i].userID);
+            strcat(message, id);
         }
     }
     return message;
@@ -160,8 +162,10 @@ char* execute_registered_users(char* userID)
     {
         if (userList[i].status == REGISTERED)
         {
+            char id[10];
+            strcpy(id, userList[i].userID);
             strcat(message, "#");
-            strcat(message, userList[i].userID);
+            strcat(message, id);
         }
     }
     return message;
