@@ -41,20 +41,24 @@ int load_users_list()
             strcpy(userList[userCount].userID, token);
             
             // Get the User Name
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             strcpy(userList[userCount].name, token);
 
             // Get the User Age
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].age = atoi(token);
 
             // Get the User GPA
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].gpa = atof(token);
 
             // Get the User Status
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].status = atoi(token);
+
+            // Get the User IP Address
+            token = strtok(NULL, CSV_DELIMITER);
+            strcpy(userList[userCount].address, token);
 
             // Increment count
             userCount++;
@@ -141,12 +145,13 @@ void save_user_data()
     int i;
     for (i = 0; i < NUM_USERS; i++)
     {
-        fprintf(userDataFile, "%s,%s,%d,%1.1f,%d\n",
+        fprintf(userDataFile, "%s,%s,%d,%1.1f,%d,%s\n",
             userList[i].userID,
             userList[i].name,
             userList[i].age,
             userList[i].gpa,
-            userList[i].status);
+            userList[i].status,
+            userList[i].address);
     }
 
     // Close the file
