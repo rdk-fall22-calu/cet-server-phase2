@@ -140,6 +140,7 @@ void *connection_handler(void *clientInfo)
     strcpy(userID, client_message);
     snprintf(displayMessage, sizeof(displayMessage), "Connected with user: %s", userID);
     log_message(threadName, displayMessage);
+    write(sock , displayMessage , strlen(displayMessage));
 
     // Set the user's IP Address
     strcpy(get_user(userID)->address, info->ipaddress);
