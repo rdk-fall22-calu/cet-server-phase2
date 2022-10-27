@@ -94,6 +94,7 @@ char* execute_register(char* userID)
 
     // Change user's status to registered.
     user->status = REGISTERED;
+    save_user_data();
     return "1#User successfully registered.";
 
 }
