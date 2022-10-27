@@ -30,6 +30,7 @@ struct user {
     char name[50];
     int age;
     float gpa;
+    char address[] = "not implemented"; // IP Address user is connected from
     int status;
 };
 

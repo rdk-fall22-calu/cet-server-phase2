@@ -124,7 +124,7 @@ void *connection_handler(void *socket_desc)
     write(sock , message , strlen(message));
 
     // TODO: Get the user ID after first connection
-     
+    
      
     //Receive a message from client
     int quit = 0;
@@ -132,43 +132,44 @@ void *connection_handler(void *socket_desc)
     {
         //end of string marker
 		client_message[read_size] = '\0';
+        client_message = strupr(client_message);
 
         // Determie the command
-        if (strcmp(strupr(client_message), CMD_HELP))
+        if (strcmp(client_message, CMD_HELP))
         {
             log_message(threadName, "Executing HELP command.");
             client_message = execute_help();
         }
-        else if (strcmp(strupr(client_message), CMD_QUIT))
+        else if (strcmp(client_message, CMD_QUIT))
         {
             log_message(threadName, "Executing QUIT command.");
             client_message = execute_quit();
             quit = 1;
         }
-        else if (strcmp(strupr(client_message), CMD_REGISTER))
+        else if (strcmp(client_message, CMD_REGISTER))
         {
             log_message(threadName, "Executing REGISTER command.");
             client_message = execute_register(userID);
         }
-        else if (strcmp(strupr(client_message), CMD_MYINFO))
+        else if (strcmp(client_message, CMD_MYINFO))
         {
             log_message(threadName, "Executing MYINFO command.");
             client_message = execute_myinfo(userID);
         }
-        else if (strcmp(strupr(client_message), CMD_ONLINE_USERS))
+        else if (strcmp(client_message, CMD_ONLINE_USERS))
         {
             log_message(threadName, "Executing ONLINEUSERS command.");
             client_message = execute_online_users(userID);
         }
-        else if (strcmp(strupr(client_message), CMD_REGISTERED_USERS))
+        else if (strcmp(client_message, CMD_REGISTERED_USERS))
         {
             log_message(threadName, "Executing REGISTEREDUSERS command.");
             client_message = execute_registered_users(userID);
         }
         else 
         {
-            log_message(threadName, "Command not recognized. Dumping client message:");
-            log_message(threadName, client_message);
+            snprintf(displayMessage, sizeof(displayMessage), "Command not recognized. Client message: \n\n\t %s \n\n", client_message);
+            log_message(threadName, displayMessage);
             client_message = "0#Command not recognized.";
         }
 		

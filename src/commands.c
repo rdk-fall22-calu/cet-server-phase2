@@ -98,8 +98,55 @@ char* execute_register(char* userID)
 
 }
 
-char* execute_myinfo(char* userID);
+char* execute_myinfo(char* userID)
+{
+    // Get the user
+    struct user *user = get_user(userID);
 
-char* execute_online_users(char* userID);
+    // Check if the user exists and is registered
+    if (user == NULL || user->status != REGISTERED)
+        return "0#User must be registered.";
 
-char* execute_registered_users(char* userID);
+    // Put together the info message
+    char message[2000];
+    snprintf(message, sizeof(message), "1#%s#%d#%1.1f#%s", user->name, user->age, user->gpa, user->address);
+    return message;
+}
+
+char* execute_online_users(char* userID)
+{
+    // Get the user
+    struct user *user = get_user(userID);
+
+    // Check if the user exists and is registered
+    if (user == NULL || user->status != REGISTERED)
+        return "0#User must be registered.";
+
+    // Put together the list of online users
+    // TODO:
+    return "0#not yet implemented";
+}
+
+char* execute_registered_users(char* userID)
+{
+    
+    // Get the user
+    struct user *user = get_user(userID);
+
+    // Check if the user exists and is registered
+    if (user == NULL || user->status != REGISTERED)
+        return "0#User must be registered.";
+
+
+    // Put together the list of registered users
+    char message[] = "1";
+    for (int i = 0; i < NUM_USERS; i++)
+    {
+        if (userList[i].status == REGISTERED)
+        {
+            strcat(message, "#");
+            strcat(message, userList[i].userID);
+        }
+    }
+    return message;
+}
