@@ -112,7 +112,7 @@ void *connection_handler(void *socket_desc)
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
      
     // Greet the Client
-    snprintf(displayMessage, sizeiof(displayMessage), "Connecting to client on thread %d", clientNumber);
+    snprintf(displayMessage, sizeof(displayMessage), "Connecting to client on thread %d", clientNumber);
     log_message(threadName, displayMessage);
 
     snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler.\n", clientNumber);
