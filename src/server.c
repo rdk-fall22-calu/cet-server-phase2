@@ -118,7 +118,7 @@ void *connection_handler(void *clientInfo)
     int sock = *(int*) info->sock;
     int read_size;
     char *message , mymessage[4000],  client_message[4000], threadName[20],
-         *userID, displayMessage[4000];
+         userID[10], displayMessage[4000];
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
     
      
