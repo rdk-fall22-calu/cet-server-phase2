@@ -128,6 +128,7 @@ char* execute_online_users(char* userID)
     // Put together the list of online users
     // TODO:
     char message[4000];
+    memset(message, 0, 4000);
     strcat(message, "1");
     for (int i = 0; i < NUM_USERS; i++)
     {
@@ -153,6 +154,7 @@ char* execute_registered_users(char* userID)
 
     // Put together the list of registered users.
     char message[4000];
+    memset(message, 0, 4000);
     strcat(message, "1");
     for (int i = 0; i < NUM_USERS; i++)
     {
