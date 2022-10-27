@@ -8,6 +8,7 @@
 
 #include "users.h"
 #include <stdlib.h>
+#include <string.h>
 
 char* execute_help()
 {
@@ -16,7 +17,7 @@ char* execute_help()
     // reset to default color:  \033[0m
     //Quit formatting
     
-    return  "1#"
+    return  "1#\n"
             "\033[0;34m╔══════════════════╗\n"
             "║       Quit       ║\n"
             "╚══════════════════╝\033[0m\n"
@@ -149,7 +150,7 @@ char* execute_registered_users(char* userID)
         return "0#User must be registered.";
 
 
-    // Put together the list of registered users
+    // Put together the list of registered users.
     char message[] = "1";
     for (int i = 0; i < NUM_USERS; i++)
     {
