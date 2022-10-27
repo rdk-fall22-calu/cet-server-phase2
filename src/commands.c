@@ -127,7 +127,8 @@ char* execute_online_users(char* userID)
 
     // Put together the list of online users
     // TODO:
-    char message[] = "1";
+    char message[4000];
+    strcat(message, "1");
     for (int i = 0; i < NUM_USERS; i++)
     {
         if (strcmp(userList[i].address, DEFAULT_IP_ADDRESS) != 0)
@@ -151,7 +152,8 @@ char* execute_registered_users(char* userID)
 
 
     // Put together the list of registered users.
-    char message[] = "1";
+    char message[4000];
+    strcat(message, "1");
     for (int i = 0; i < NUM_USERS; i++)
     {
         if (userList[i].status == REGISTERED)
