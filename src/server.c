@@ -117,62 +117,70 @@ void *connection_handler(void *clientInfo)
     struct clientInfo *info = clientInfo;
     int sock = *(int*) info->sock;
     int read_size;
-    char *message , mymessage[2000],  client_message[2000], threadName[20],
-         *userID, displayMessage[2000];
+    char *message , mymessage[4000],  client_message[4000], threadName[20],
+         *userID, displayMessage[4000];
     snprintf(threadName, sizeof(threadName), "SERVER\\%d", clientNumber);
     
      
     // Greet the Client
-    snprintf(displayMessage, sizeof(displayMessage), "Connecting to client on %s", info->ipaddress);
+    snprintf(displayMessage, sizeof(displayMessage), "Connecting to client at %s.", info->ipaddress);
     log_message(threadName, displayMessage);
 
-    snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler.\n", clientNumber);
+    snprintf(mymessage, sizeof(mymessage), "Greetings! You are the No.%d client. I am your connection handler.\nPlease input your User ID.\n", clientNumber);
     message = mymessage;
     write(sock , message , strlen(message));
 
-    // Get the User ID
-    message = "Please input your User ID.\n";
-    write(sock , message , strlen(message));
-
     // TODO: Get the user ID after first connection
+    read_size = recv(sock , client_message , 4000 , 0);
+    if (read_size <= 0)
+    {
+        log_message(threadName, "Error receiving User ID.");
+        return 0;
+    }
+    strcpy(userID, client_message);
+    snprintf(displayMessage, sizeof(displayMessage), "Connected with user: %s", userID);
+    log_message(threadName, displayMessage);
 
+    // Set the user's IP Address
+    strcpy(get_user(userID)->address, info->ipaddress);
+    save_user_data();
      
     //Receive a message from client
     int quit = 0;
-    while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 )
+    while( (read_size = recv(sock , client_message , 4000 , 0)) > 0 )
     {
         //end of string marker
 		client_message[read_size] = '\0';
         strupr(client_message);
 
         // Determie the command
-        if (strcmp(client_message, CMD_HELP))
+        if (strcmp(client_message, CMD_HELP) == 0)
         {
             log_message(threadName, "Executing HELP command.");
             message = execute_help();
         }
-        else if (strcmp(client_message, CMD_QUIT))
+        else if (strcmp(client_message, CMD_QUIT) == 0)
         {
             log_message(threadName, "Executing QUIT command.");
             message = execute_quit();
             quit = 1;
         }
-        else if (strcmp(client_message, CMD_REGISTER))
+        else if (strcmp(client_message, CMD_REGISTER) == 0)
         {
             log_message(threadName, "Executing REGISTER command.");
             message = execute_register(userID);
         }
-        else if (strcmp(client_message, CMD_MYINFO))
+        else if (strcmp(client_message, CMD_MYINFO) == 0)
         {
             log_message(threadName, "Executing MYINFO command.");
             message = execute_myinfo(userID);
         }
-        else if (strcmp(client_message, CMD_ONLINE_USERS))
+        else if (strcmp(client_message, CMD_ONLINE_USERS) == 0)
         {
             log_message(threadName, "Executing ONLINEUSERS command.");
             message = execute_online_users(userID);
         }
-        else if (strcmp(client_message, CMD_REGISTERED_USERS))
+        else if (strcmp(client_message, CMD_REGISTERED_USERS) == 0)
         {
             log_message(threadName, "Executing REGISTEREDUSERS command.");
             message = execute_registered_users(userID);
@@ -188,7 +196,7 @@ void *connection_handler(void *clientInfo)
         write(sock , message , strlen(message));
 		
 		//clear the message buffer
-		memset(client_message, 0, 2000);
+		memset(client_message, 0, 4000);
 
         // Disconnect
         if (quit == 1)
@@ -204,6 +212,10 @@ void *connection_handler(void *clientInfo)
     {
         log_message(threadName, "Receive failed.");
     }
+
+    // Clear the user's IP Address
+    strcpy(get_user(userID)->address, DEFAULT_IP_ADDRESS);
+    save_user_data();
          
     return 0;
 } 

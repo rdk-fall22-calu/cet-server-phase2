@@ -109,7 +109,7 @@ char* execute_myinfo(char* userID)
         return "0#User must be registered.";
 
     // Put together the info message
-    char message[2000];
+    char message[4000];
     snprintf(message, sizeof(message), "1#%s#%d#%1.1f#%s", user->name, user->age, user->gpa, user->address);
     return message;
 }
@@ -125,7 +125,16 @@ char* execute_online_users(char* userID)
 
     // Put together the list of online users
     // TODO:
-    return "0#not yet implemented";
+    char message[] = "1";
+    for (int i = 0; i < NUM_USERS; i++)
+    {
+        if (strcmp(userList[i].address, DEFAULT_IP_ADDRESS) != 0)
+        {
+            strcat(message, "#");
+            strcat(message, userList[i].userID);
+        }
+    }
+    return message;
 }
 
 char* execute_registered_users(char* userID)

@@ -19,6 +19,7 @@
 #define USER_DATA_FILE "users.csv"
 #define CSV_DELIMITER ","
 
+#define DEFAULT_IP_ADDRESS "-1.-1.-1.-1"
 
 
 /**
