@@ -198,6 +198,7 @@ void *connection_handler(void *clientInfo)
 		
 		//clear the message buffer
 		memset(client_message, 0, 4000);
+		memset(message, 0, 4000);
 
         // Disconnect
         if (quit == 1)
