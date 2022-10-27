@@ -16,7 +16,8 @@ char* execute_help()
     // reset to default color:  \033[0m
     //Quit formatting
     
-    return  "\033[0;34m╔══════════════════╗\n"
+    return  "1#"
+            "\033[0;34m╔══════════════════╗\n"
             "║       Quit       ║\n"
             "╚══════════════════╝\033[0m\n"
 

@@ -41,23 +41,23 @@ int load_users_list()
             strcpy(userList[userCount].userID, token);
             
             // Get the User Name
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             strcpy(userList[userCount].name, token);
 
             // Get the User Age
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].age = atoi(token);
 
             // Get the User GPA
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].gpa = atof(token);
 
             // Get the User Status
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             userList[userCount].status = atoi(token);
 
             // Get the User IP Address
-            token = strtok(line, CSV_DELIMITER);
+            token = strtok(NULL, CSV_DELIMITER);
             strcpy(userList[userCount].address, token);
 
             // Increment count
