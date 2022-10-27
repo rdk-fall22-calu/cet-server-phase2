@@ -145,7 +145,7 @@ void save_user_data()
     int i;
     for (i = 0; i < NUM_USERS; i++)
     {
-        fprintf(userDataFile, "%s,%s,%d,%1.1f,%d,%s\n",
+        fprintf(userDataFile, "%s,%s,%d,%1.1f,%d,%s,\n",
             userList[i].userID,
             userList[i].name,
             userList[i].age,
