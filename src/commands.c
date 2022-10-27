@@ -130,7 +130,7 @@ char* execute_online_users(char* userID)
     char message[4000];
     memset(message, 0, 4000);
     strcat(message, "1");
-    struct user userList[] = get_user_list();
+    struct user *userList = get_user_list();
     for (int i = 0; i < NUM_USERS; i++)
     {
         if (strcmp(userList[i].address, DEFAULT_IP_ADDRESS) != 0)
@@ -157,7 +157,7 @@ char* execute_registered_users(char* userID)
     char message[4000];
     memset(message, 0, 4000);
     strcat(message, "1");
-    struct user userList[] = get_user_list();
+    struct user *userList = get_user_list();
     for (int i = 0; i < NUM_USERS; i++)
     {
         if (userList[i].status == REGISTERED)

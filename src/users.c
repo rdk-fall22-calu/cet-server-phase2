@@ -176,7 +176,7 @@ struct user* get_user(char *userID)
 
 }
 
-struct user** get_user_list()
+struct user* get_user_list()
 {
     return userList;
 }

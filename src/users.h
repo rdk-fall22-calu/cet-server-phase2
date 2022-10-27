@@ -71,6 +71,6 @@ struct user* get_user(char *userID);
  * @brief 
  * 
  */
-struct user** get_user_list();
+struct user* get_user_list();
 
 #endif
