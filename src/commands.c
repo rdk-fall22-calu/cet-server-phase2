@@ -18,7 +18,7 @@ char* execute_help()
     //Quit formatting
     
     return  "1#\n"
-            "\033[0;34m╔══════════════════╗\n"
+            "\033[0;31m╔══════════════════╗\n"
             "║       Quit       ║\n"
             "╚══════════════════╝\033[0m\n"
 
@@ -26,7 +26,7 @@ char* execute_help()
            "\033[0;31m1#Disconnecting.\n\n"
 
     //Register formatting
-            "\033[0;34m╔══════════════════╗\n"
+            "\033[0;31m╔══════════════════╗\n"
             "║     Register     ║\n"
             "╚══════════════════╝\033[0m\n"
 
@@ -38,7 +38,7 @@ char* execute_help()
            "\033[0;31m0#<User> has registered previously.\033[0m\n\n"
 
     //MyInfo formatting
-            "\033[0;34m╔═════════════════╗\n"
+            "\033[0;31m╔═════════════════╗\n"
             "║     My Info     ║\n"
             "╚═════════════════╝\033[0m\n"
 
@@ -54,7 +54,7 @@ char* execute_help()
            "\033[0;31m0#Command requires registered user.\033[0m\n\n"
 
     //Online users formatting
-            "\033[0;34m╔══════════════════╗\n"
+            "\033[0;31m╔══════════════════╗\n"
             "║   Online Users   ║\n"
             "╚══════════════════╝\033[0m\n"
 
@@ -65,7 +65,7 @@ char* execute_help()
            "\033[0;31m0#Command requires registered user.\033[0m\n\n"
 
     //Registered users formatting
-            "\033[0;34m╔══════════════════╗\n"
+            "\033[0;31m╔══════════════════╗\n"
             "║ Registered Users ║\n"
             "╚══════════════════╝\033[0m\n"
 
