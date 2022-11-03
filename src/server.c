@@ -219,8 +219,11 @@ void *connection_handler(void *clientInfo)
     }
 
     // Clear the user's IP Address
-    strcpy(get_user(userID)->address, DEFAULT_IP_ADDRESS);
-    save_user_data();
+    if (u != NULL)
+    {
+        strcpy(get_user(userID)->address, DEFAULT_IP_ADDRESS);
+        save_user_data();
+    }
          
     return 0;
 } 
