@@ -145,7 +145,6 @@ char* execute_online_users(char* userID)
         return "0#User must be registered.";
 
     // Put together the list of online users
-    // TODO:
     char message[4000];
     memset(message, 0, 4000);
     strcat(message, "1");
