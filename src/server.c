@@ -140,7 +140,7 @@ void *connection_handler(void *clientInfo)
     }
     strcpy(userID, client_message);
     for (int i = 0; userID[i]; i++)
-        str[i] = tolower(str[i]);
+        userID[i] = tolower(userID[i]);
     snprintf(displayMessage, sizeof(displayMessage), "Connected with user: %s", userID);
     log_message(threadName, displayMessage);
     write(sock , displayMessage , strlen(displayMessage));
