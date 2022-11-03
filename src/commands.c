@@ -38,6 +38,7 @@ char* execute_help()
             "\n"
             "Command: REGISTEREDUSERS\n"
             "Description: Requires the user to be registered. Returns a list of currently registered users, delimited by ‘#’.\n"
+            "Example: 1#kre1188#chen#ste4864\n"
         ;
 
     //         "Quit disconnects the client and the server. It will return a response prior as such:\n"

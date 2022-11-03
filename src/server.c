@@ -14,6 +14,7 @@
 #include "logging.h"
 #include "users.h"
 #include "commands.h"
+#include "ctype.h"
 
 #define RCV_BUFFER_SIZE 1024
 #define SND_BUFFER_SIZE 1024
@@ -138,6 +139,8 @@ void *connection_handler(void *clientInfo)
         return 0;
     }
     strcpy(userID, client_message);
+    for (int i = 0; userID[i]; i++)
+        str[i] = tolower(str[i]);
     snprintf(displayMessage, sizeof(displayMessage), "Connected with user: %s", userID);
     log_message(threadName, displayMessage);
     write(sock , displayMessage , strlen(displayMessage));
