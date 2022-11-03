@@ -143,18 +143,22 @@ void *connection_handler(void *clientInfo)
     write(sock , displayMessage , strlen(displayMessage));
 
     // Set the user's IP Address
-    strcpy(get_user(userID)->address, info->ipaddress);
-    save_user_data();
+    struct user u* = get_user(userID);
+    if (user != NULL)
+    {
+        strcpy(u->address, info->ipaddress);
+        save_user_data();
+    }
      
     //Receive a message from client
     int quit = 0;
     while( (read_size = recv(sock , client_message , 4000 , 0)) > 0 )
     {
-        //end of string marker
+        // End of string marker
 		client_message[read_size] = '\0';
         strupr(client_message);
 
-        // Determie the command
+        // Determine the command
         if (strcmp(client_message, CMD_HELP) == 0)
         {
             log_message(threadName, "Executing HELP command.");
