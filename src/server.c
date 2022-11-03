@@ -143,10 +143,10 @@ void *connection_handler(void *clientInfo)
     write(sock , displayMessage , strlen(displayMessage));
 
     // Set the user's IP Address
-    struct user u = get_user(userID);
+    struct user *u = get_user(userID);
     if (u != NULL)
     {
-        strcpy(u.address, info->ipaddress);
+        strcpy(u->address, info->ipaddress);
         save_user_data();
     }
      
