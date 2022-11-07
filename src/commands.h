@@ -19,54 +19,49 @@
 #define CMD_REGISTERED_USERS "REGISTEREDUSERS"
 
 /**
- * @brief 
+ * @brief Returns a string with all of the help information
  * 
- * @return char* 
+ * @return char* Response string
  */
-char* execute_help();   // If the user inputs this command the server will respond with a string of all accepted commands
+char* execute_help();
 
 /**
- * @brief 
+ * @brief This command returns a quit message for response
  * 
- * @return char* 
+ * @return char* Response string
  */
-char* execute_quit();   // If the user inputs this command the server will  disconnect them and respond with a string telling them that they have been disconnected 
+char* execute_quit();
 
 /**
- * @brief 
+ * @brief The server will attempt to register them and respond with a string telling them that their userID has been registered successfully or not possible reasons are it was already registered or it is an invalid userID.
  * 
  * @param userID 
- * @return char* 
+ * @return char* Response string
  */
-char* execute_register(char* userID);   /* If the user inputs this command the server will attempt to register them and respond with
-                                         a string telling them that their userID has been registered successfully or not
-                                         possible reasons are it was already registered or it is an invalid userID*/
-                                        
+char* execute_register(char* userID);
 
 /**
- * @brief 
+ * @brief The server will respond with a string of information about the user. Requires registered user.
  * 
  * @param userID 
- * @return char* 
+ * @return char* Response string
  */
-char* execute_myinfo(char* userID);   /* If the user inputs this command the server will respond with a string of their name,age,GPA,and IP address
-                                      name is in the format Firstname Lastname, age is an integer between 18 and 22, GPA is a float between 2.5 and 4.0,
-                                      and Their IP address*/
-/**
- * @brief 
- * 
- * @param userID 
- * @return char* 
- */
-char* execute_online_users(char* userID);   // If the user iputs this command the server will respond with a string of all online users
+char* execute_myinfo(char* userID);
 
 /**
- * @brief 
+ * @brief The server will respond with a string of all online users. Requires registered user.
  * 
  * @param userID 
- * @return char* 
+ * @return char* Response string
  */
-char* execute_registered_users(char* userID);   // If the user inputs this command the server will respond with a string of all registered users
+char* execute_online_users(char* userID);
 
+/**
+ * @brief The server will respond with a string of all registered users. Requires registered user.
+ * 
+ * @param userID 
+ * @return char* Response string
+ */
+char* execute_registered_users(char* userID);  
 
 #endif

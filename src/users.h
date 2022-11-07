@@ -48,14 +48,13 @@ int load_users_list();
 
 
 /**
- * @brief 
- * will give all users Their appropriate ID and first and last name and will assign them an age between 18 and 20, a GPA between 2.5 and 4.0 
+ * @brief Initializes random values for each user 
  */
 int initialize_users();
 
 
 /**
- * @brief 
+ * @brief Saves the user data to a CSV file.
  * 
  */
 void save_user_data();
@@ -63,15 +62,17 @@ void save_user_data();
 
 /**
  * @brief Returns the user with the specified user ID
- * Pre-condition: The user exists
- * Returns null if the user does not exist
+ * 
+ * @param userID
+ * @return Pointer to user struct, NULL if user does not exist
  */
 struct user* get_user(char *userID);
 
 
 /**
- * @brief 
+ * @brief Gets the list of users 
  * 
+ * @return user* pointer to the user list
  */
 struct user* get_user_list();
 

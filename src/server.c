@@ -19,7 +19,6 @@
 #include "logging.h"
 #include "users.h"
 #include "commands.h"
-#include "ctype.h"
 
 #define RCV_BUFFER_SIZE 1024
 #define SND_BUFFER_SIZE 1024
@@ -32,12 +31,26 @@ struct clientInfo {
     void *sock;
 };
 
-// Threading Function
+/**
+ * @brief Threading function
+ * 
+ * @return void* 
+ */
 void *connection_handler(void *);
 
-// Convert a string to full upper case
+/**
+ * @brief Convert a string to all upper case
+ * 
+ * @param text 
+ * @return char* 
+ */
 char *strupr(char * text);
 
+/**
+ * @brief Entry point and main loop for the server
+ * 
+ * @return int Exit message
+ */
 int main()
 {
     log_message("SERVER", "Starting server.");
@@ -143,9 +156,13 @@ void *connection_handler(void *clientInfo)
         log_message(threadName, "Error receiving User ID.");
         return 0;
     }
+    
+    // Set the user ID to lower case
     strcpy(userID, client_message);
     for (int i = 0; userID[i]; i++)
         userID[i] = tolower(userID[i]);
+    
+    // Return a response with the user ID
     snprintf(displayMessage, sizeof(displayMessage), "Connected with user: %s", userID);
     log_message(threadName, displayMessage);
     write(sock , displayMessage , strlen(displayMessage));

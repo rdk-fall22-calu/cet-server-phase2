@@ -15,4 +15,3 @@ For any commands that require a registered user, failure
 - Quit: Disconnects the client
 - RegisteredUsers: Returns a list of all currently registered users
 - OnlineUsers: Returns a list of all currently online users
-- 

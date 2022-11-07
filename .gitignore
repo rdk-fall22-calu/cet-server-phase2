@@ -1,4 +1,11 @@
-build/
+*.exe
+*.txt
+*.csv
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
 
 # Prerequisites
 *.d
